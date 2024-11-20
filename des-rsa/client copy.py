@@ -98,7 +98,6 @@ def receive_messages(clientID):
 # View received messages
 def view_received_messages():
     sender_id = input("Masukkan ID Client pengirim: ")
-    print(messages)
     response = check_client(sender_id)
     sender_id = int(sender_id)
     if response == "VALID":
@@ -157,7 +156,7 @@ def main_menu(clientID):
     while True:
         print("Menu Tugas 3 RSA: (Ketik angka untuk memilih opsi)")
         print("1. Kirim Pesan")
-        print("2. Terima Pesan")
+        print("2. Lihat Pesan")
         print("3. Lihat Public Key")
         print("4. Lihat Private Key")
         print("5. Keluar")
