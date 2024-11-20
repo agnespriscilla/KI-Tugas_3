@@ -110,31 +110,34 @@ def view_received_messages():
         print("ID client tidak valid.")
 
 # Send messages
-def send_messages():
+def send_messages(clientID):
     receiver_id = input("Masukkan ID Client yang ingin dituju: ")
-    response = check_client(receiver_id)
-    if response == "VALID":
-        message = input("Masukkan pesan: ")
-        encrypted_message = des.encrypt(message, des.make_rk(secret_key))
-        #######################################################
-        #           encrypt the DES secret key here           #
-        #######################################################
-        client_socket.send("SEND".encode('utf-8'))
-        status = client_socket.recv(1024).decode('utf-8')
-        print(status)
-        client_socket.send(receiver_id.encode('utf-8'))
-        status = client_socket.recv(1024).decode('utf-8')
-        print(status)
-        client_socket.send(encrypted_message.encode('latin-1'))
-        status = client_socket.recv(1024).decode('utf-8')
-        print(status)
-        client_socket.send(secret_key.encode('latin-1')) # replace with the encrypted DES secret key
-        status = client_socket.recv(1024).decode('utf-8')
-        print(status)
-        target_public_key = query_pka(int(receiver_id)) # Cek query PKA, ntar dihapus kalau udah
-        print(f'Client {receiver_id} public key: {target_public_key}')
+    if(int(receiver_id) == clientID):
+        print("Anda tidak dapat mengirim pesan ke diri sendiri.")
     else:
-        print("ID client tidak valid.")
+        response = check_client(receiver_id)
+        if response == "VALID":
+            message = input("Masukkan pesan: ")
+            encrypted_message = des.encrypt(message, des.make_rk(secret_key))
+            #######################################################
+            #           encrypt the DES secret key here           #
+            #######################################################
+            client_socket.send("SEND".encode('utf-8'))
+            status = client_socket.recv(1024).decode('utf-8')
+            print(status)
+            client_socket.send(receiver_id.encode('utf-8'))
+            status = client_socket.recv(1024).decode('utf-8')
+            print(status)
+            client_socket.send(encrypted_message.encode('latin-1'))
+            status = client_socket.recv(1024).decode('utf-8')
+            print(status)
+            client_socket.send(secret_key.encode('latin-1')) # replace with the encrypted DES secret key
+            status = client_socket.recv(1024).decode('utf-8')
+            print(status)
+            target_public_key = query_pka(int(receiver_id)) # Cek query PKA, ntar dihapus kalau udah
+            print(f'Client {receiver_id} public key: {target_public_key}')
+        else:
+            print("ID client tidak valid.")
 
 def main_menu(clientID):
     while clientID < 1 or clientID > 10:
@@ -164,7 +167,7 @@ def main_menu(clientID):
         choice = input("Pilih opsi: ")
 
         if choice == "1":
-            send_messages()
+            send_messages(clientID)
             continue
         elif choice == "2":
             view_received_messages()
