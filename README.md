@@ -4,6 +4,6 @@ Pembagian Tugas:
 
 Cara Penggunaan:
 
-1. `python "pka copy.py" (atau pka.py)`
-2. `python "server copy.py" (atau server.py)`
-3. `python "client copy.py" (atau client.py) (sementara jumlah client maksimal 10)`
+1. `python "pka.py"`
+2. `python "server.py"`
+3. `python "client .py"`
