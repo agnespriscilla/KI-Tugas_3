@@ -265,7 +265,6 @@ def encrypt(pt, rk):
 		pt = pad(bin2bytes(pt))
 		pt = bytes2bin(pt)
 	ptlength = len(pt)
-	#print("Plain Text : ", hex2text(bin2hex(pt)))
 	
 	cipher_texts = []
 
@@ -305,9 +304,6 @@ def encrypt(pt, rk):
 				right = result
 			else:
 				left = result
-				
-			# print("Round ", j + 1, " ", bin2hex(left),
-			# " ", bin2hex(right), " ", bin2hex(rk[j]))
 				
 		# Combination
 		combine = left + right
